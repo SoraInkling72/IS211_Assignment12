@@ -33,3 +33,4 @@ CREATE TABLE student_quiz_results(
 );
 INSERT INTO student_quiz_results VALUES (1, 40, 89)
 INSERT INTO student_quiz_results VALUES (3, 4, 93)
+INSERT INTO student_quiz_results VALUES (2, 4, 93)
