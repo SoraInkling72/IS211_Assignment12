@@ -13,6 +13,14 @@
             <th>Student Last Name</th>
         </tr>
     </thead>
+    <tbody>
+        {% for info in student_list %}
+        <tr>
+          <td>{{ info.ID }}</td>
+          <td>{{ info.student_firstname }}</td>
+          <td>{{ info.student_lastname }}</td>
+        </tr>
+    </tbody>
 </table>
 <table class="quiz list">
     <thead>

@@ -9,7 +9,7 @@ conn = sqlite3.connect("hw13.db")
 
 @app.route('/')
 def index():
-    return render_template("dashboard.html")
+    return render_template("login.html")
 
 @app.route('/login')
 def enter_credentials():
@@ -23,13 +23,20 @@ def enter_credentials():
         else:
             if not re.match(r"password", password):
                 flash("Invalid password")
-                return redirect("/login")
+                return redirect("/")
     else:
         if not re.match(r"admin", username):
             flash("Invalid username")
-            return redirect("/login")
+            return redirect("/")
 
+@app.route('/dashboard')
+def dashboard():
+    return redirect("/")
 
+@app.route('/add_student', methods=["POST"])
+def add_student():
+    global student_list
+    return redirect("/dashboard")
 
 if __name__ == "__main__":
     app.run(port=5000)
