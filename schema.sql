@@ -37,28 +37,6 @@ INSERT INTO quiz_results VALUES ('Calculus', 100);
 INSERT INTO quiz_results VALUES ('Chemistry 101', 86);
 
 
-CREATE TABLE quiz_results(
-    subject INTEGER,
-  	student_score INTEGER
-);
-INSERT INTO quiz_results VALUES ('Algebra', 89);
-INSERT INTO quiz_results VALUES ('Project Management', 92);
-INSERT INTO quiz_results VALUES ('English 101', 93);
-INSERT INTO quiz_results VALUES ('Calculus', 100);
-INSERT INTO quiz_results VALUES ('Chemistry 101', 86);
-
-
-CREATE TABLE quiz_results(
-    subject INTEGER,
-  	student_score INTEGER
-);
-INSERT INTO quiz_results VALUES ('Algebra', 89);
-INSERT INTO quiz_results VALUES ('Project Management', 92);
-INSERT INTO quiz_results VALUES ('English 101', 93);
-INSERT INTO quiz_results VALUES ('Calculus', 100);
-INSERT INTO quiz_results VALUES ('Chemistry 101', 86);
-
-
 SELECT CONCAT(students.first_name, ' ', students.last_name) AS 'Student',
        quiz.subject AS 'Subject',
        quiz_results.student_score AS 'Quiz Score'
