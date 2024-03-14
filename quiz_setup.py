@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash, g
+from flask import Flask, request, redirect, render_template, flash, g, abort
 import sqlite3
 
 app = Flask(__name__)
@@ -52,6 +52,7 @@ def login():
         else:
             flash("Please input correct credentials")
             return redirect('/')
+
     return render_template("login.html")
 
 @app.route('/dashboard', methods=["POST"])
