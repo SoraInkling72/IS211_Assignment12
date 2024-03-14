@@ -1,5 +1,4 @@
 from flask import Flask, request, redirect, render_template, flash, g
-import re
 import sqlite3
 
 app = Flask(__name__)
@@ -42,23 +41,18 @@ def create_tables():
 def index():
     return render_template("login.html")
 
-@app.route('/login', methods=["POST"])
-def enter_credentials():
-    username = request.form["Username"]
-    password = request.form["Password"]
-
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
     # validate username & password
-    if re.match(r"admin", username):
-        if re.match(r"password", password):
-            return redirect("/dashboard")
+        if username == "admin" and password == "password":
+            return redirect('/dashboard')
         else:
-            if not re.match(r"password", password):
-                flash("Invalid password")
-                return redirect("/")
-    else:
-        if not re.match(r"admin", username):
-            flash("Invalid username")
-            return redirect("/")
+            flash("Please input correct credentials")
+            return redirect('/')
+    return render_template("login.html")
 
 @app.route('/dashboard', methods=["POST"])
 def dashboard():
