@@ -1,5 +1,6 @@
-CREATE SCHEMA student_quiz_scores;
-
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS quiz;
+DROP TABLE IF EXISTS quiz_results;
 
 CREATE TABLE students(
     id INTEGER PRIMARY KEY,

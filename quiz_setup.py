@@ -32,7 +32,7 @@ def create_tables():
         cur.execute("CREATE TABLE students(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT);")
         cur.execute(
             "CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
-        cur.execute("CREATE TABLE quiz_results(subject TEXT, student_score INTEGER);")
+        cur.execute("CREATE TABLE quiz_results(student TEXT, student_score INTEGER);")
 
 @app.route('/')
 def index():
