@@ -62,5 +62,15 @@ def add_student():
     global student_list
     return redirect("/dashboard")
 
+@app.route('/add_quiz', methods=["POST"])
+def add_quiz():
+    global quiz_list
+    return redirect("/dashboard")
+
+@app.route('/add_quiz_result', methods=["POST"])
+def add_quiz_result():
+    global quiz_results
+    return redirect("/dashboard")
+
 if __name__ == "__main__":
     app.run(port=5000)

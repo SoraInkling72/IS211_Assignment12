@@ -20,6 +20,7 @@
           <td>{{ info.student_firstname }}</td>
           <td>{{ info.student_lastname }}</td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 <table class="quiz list">
@@ -39,6 +40,7 @@
           <td>{{ info.number_of_questions }}</td>
           <td>{{ info.date_given }}</td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 <table class="quiz results">
@@ -54,6 +56,7 @@
           <td>{{ info.subject }}</td>
           <td>{{ info.student_score }}</td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 </body>
