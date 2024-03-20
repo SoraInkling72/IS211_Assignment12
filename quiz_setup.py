@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash, g, abort
+from flask import Flask, request, redirect, render_template, flash, g
 import sqlite3
 
 app = Flask(__name__)
@@ -33,10 +33,6 @@ def create_tables():
         cur.execute(
             "CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
         cur.execute("CREATE TABLE quiz_results(subject TEXT, student_score INTEGER);")
-        cur.execute("SELECT CONCAT(students.first_name, ' ', students.last_name) AS 'Student', "
-                    "quiz.subject AS 'Subject', quiz_results.student_score AS 'Quiz Score' FROM students "
-                    "LEFT JOIN (quiz RIGHT JOIN quiz_results ON subject.quiz = subject.quiz_results ORDER "
-                    "BY subject.quiz DESC) ON id.students = id_quiz;")
 
 @app.route('/')
 def index():
@@ -57,8 +53,9 @@ def login():
     return render_template("login.html")
 
 @app.route('/dashboard', methods=["POST"])
-def dashboard():
-    return render_template("dashboard.html")
+def dashboard(student_list, quiz_list, quiz_results):
+    return render_template("dashboard.html", student_list=student_list,
+                           quiz_list=quiz_list, quiz_results=quiz_results)
 
 @app.route('/add_student', methods=["POST"])
 def add_student():
