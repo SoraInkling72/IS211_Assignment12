@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, render_template, flash, g, abort
 import sqlite3
 
 app = Flask(__name__)
+app.secret_key = 'keyblade47'
 
 conn = sqlite3.connect("hw13.db")
 DATABASE = '/path/to/hw13.db'
@@ -41,7 +42,7 @@ def create_tables():
 def index():
     return render_template("login.html")
 
-@app.route('/login', methods=["GET", "POST"])
+@app.route('/login', methods=["POST"])
 def login():
     if request.method == "POST":
         username = request.form["username"]

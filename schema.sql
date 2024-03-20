@@ -9,8 +9,8 @@ CREATE TABLE students(
 INSERT INTO students VALUES (1, 'John', 'Williams');
 INSERT INTO students VALUES (2, 'Sarah', 'Williams');
 INSERT INTO students VALUES (3, 'John', 'Davis');
-INSERT INTO students VALUES (4, 'Garfield', 'Bucklar');
-INSERT INTO students VALUES (5, 'Sandra', 'Erwin');
+INSERT INTO students VALUES (4, 'Annie', 'Mei');
+INSERT INTO students VALUES (5, 'Leon', 'Pollo');
 
 
 CREATE TABLE quiz(
@@ -27,21 +27,11 @@ INSERT INTO quiz VALUES (5, 'Project Management', 25, '2022/02/28');
 
 
 CREATE TABLE quiz_results(
-    subject INTEGER,
+    student INTEGER,
   	student_score INTEGER
 );
-INSERT INTO quiz_results VALUES ('Algebra', 89);
-INSERT INTO quiz_results VALUES ('Project Management', 92);
-INSERT INTO quiz_results VALUES ('English 101', 93);
-INSERT INTO quiz_results VALUES ('Calculus', 100);
-INSERT INTO quiz_results VALUES ('Chemistry 101', 86);
-
-
-SELECT CONCAT(students.first_name, ' ', students.last_name) AS 'Student',
-       quiz.subject AS 'Subject',
-       quiz_results.student_score AS 'Quiz Score'
-FROM students
-LEFT JOIN (quiz RIGHT JOIN quiz_results
-           ON subject.quiz = subject.quiz_results
-           ORDER BY subject.quiz DESC)
-ON id.students = id_quiz;
+INSERT INTO quiz_results VALUES ('John Williams', 89);
+INSERT INTO quiz_results VALUES ('Sarah Williams', 92);
+INSERT INTO quiz_results VALUES ('John Davis', 93);
+INSERT INTO quiz_results VALUES ('Annie Mei', 100);
+INSERT INTO quiz_results VALUES ('Leon Pollo', 86);
