@@ -1,11 +1,12 @@
-from flask import Flask, request, redirect, render_template, flash, g, re
+from flask import Flask, request, redirect, render_template, flash, g
+import re
 import sqlite3
 
 app = Flask(__name__)
 app.secret_key = 'keyblade47'
 
 conn = sqlite3.connect("hw13.db")
-DATABASE = '/path/to/hw13.db'
+DATABASE = 'hw13.db'
 
 
 def get_db_connection():
@@ -60,11 +61,11 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/dashboard', methods=["POST"])
+@app.route('/dashboard', methods=["GET", "POST"])
 def dashboard():
     conn = get_db_connection()
-    student_list = conn.execute('SELECT * FROM student_list').fetchall()
-    quiz_list = conn.execute('SELECT * FROM quiz_list').fetchall()
+    student_list = conn.execute('SELECT * FROM students').fetchall()
+    quiz_list = conn.execute('SELECT * FROM quiz').fetchall()
     quiz_results = conn.execute('SELECT * FROM quiz_results').fetchall()
     conn.close()
     return render_template("dashboard.html", student_list=student_list,
@@ -80,10 +81,13 @@ def add_student():
             flash("Please input proper name")
         elif not re.match(r"^[A-Za-z]+$", last_name):
             flash("Please input proper name")
-
         else:
             conn = get_db_connection()
-            conn.execute('UPDATE ')
+            conn.execute('UPDATE students SET first_name = ?, last_name = ?',
+                         (first_name, last_name))
+            conn.commit()
+            conn.close()
+            return redirect("dashboard.html")
 
     return redirect("add_student.html")
 
