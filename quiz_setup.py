@@ -32,9 +32,9 @@ def init_db():
 
 
 def create_tables():
-    con = sqlite3.connect('hw13.db')
-    with con:
-        cur = con.cursor()
+    conn = sqlite3.connect('hw13.db')
+    with conn:
+        cur = conn.cursor()
         cur.execute("CREATE TABLE students(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT);")
         cur.execute(
             "CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
@@ -103,4 +103,4 @@ def add_quiz_result():
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(port=5000, debug=True)

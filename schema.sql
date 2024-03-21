@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS quiz;
 DROP TABLE IF EXISTS quiz_results;
 
-CREATE TABLE students(
+CREATE TABLE students (
     id INTEGER PRIMARY KEY,
     first_name TEXT,
     last_name TEXT
@@ -14,7 +14,7 @@ INSERT INTO students VALUES (4, 'Annie', 'Mei');
 INSERT INTO students VALUES (5, 'Leon', 'Pollo');
 
 
-CREATE TABLE quiz(
+CREATE TABLE quiz (
     id INTEGER PRIMARY KEY,
     subject TEXT,
     number_of_questions INTEGER,
@@ -27,7 +27,7 @@ INSERT INTO quiz VALUES (4, 'Chemistry 101', 64, '2022/04/19');
 INSERT INTO quiz VALUES (5, 'Project Management', 25, '2022/02/28');
 
 
-CREATE TABLE quiz_results(
+CREATE TABLE quiz_results (
     student INTEGER,
   	student_score INTEGER
 );
