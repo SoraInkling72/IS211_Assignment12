@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash, g
+from flask import Flask, request, redirect, render_template, flash, g, re
 import sqlite3
 
 app = Flask(__name__)
@@ -7,23 +7,28 @@ app.secret_key = 'keyblade47'
 conn = sqlite3.connect("hw13.db")
 DATABASE = '/path/to/hw13.db'
 
-def get_db():
+
+def get_db_connection():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
+
 
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
+
+
 def init_db():
     with app.app_context():
-        db = get_db()
+        db = get_db_connection()
         with app.open_resource('schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
+
 
 def create_tables():
     con = sqlite3.connect('hw13.db')
@@ -34,16 +39,18 @@ def create_tables():
             "CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
         cur.execute("CREATE TABLE quiz_results(student TEXT, student_score INTEGER);")
 
+
 @app.route('/')
 def index():
     return render_template("login.html")
+
 
 @app.route('/login', methods=["POST"])
 def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-    # validate username & password
+        # validate username & password
         if username == "admin" and password == "password":
             return redirect('/dashboard')
         else:
@@ -52,25 +59,44 @@ def login():
 
     return render_template("login.html")
 
+
 @app.route('/dashboard', methods=["POST"])
-def dashboard(student_list, quiz_list, quiz_results):
+def dashboard():
+    conn = get_db_connection()
+    student_list = conn.execute('SELECT * FROM student_list').fetchall()
+    quiz_list = conn.execute('SELECT * FROM quiz_list').fetchall()
+    quiz_results = conn.execute('SELECT * FROM quiz_results').fetchall()
+    conn.close()
     return render_template("dashboard.html", student_list=student_list,
                            quiz_list=quiz_list, quiz_results=quiz_results)
 
-@app.route('/add_student', methods=["POST"])
+
+@app.route('/add_student', methods=["GET", "POST"])
 def add_student():
-    global student_list
-    return redirect("/dashboard")
+    if request.method == "POST":
+        first_name = request.form["first_name"]
+        last_name = request.form["last_name"]
+        if not re.match(r"^[A-Za-z]+$", first_name):
+            flash("Please input proper name")
+        elif not re.match(r"^[A-Za-z]+$", last_name):
+            flash("Please input proper name")
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE ')
+
+    return redirect("add_student.html")
+
 
 @app.route('/add_quiz', methods=["POST"])
 def add_quiz():
-    global quiz_list
     return redirect("/dashboard")
+
 
 @app.route('/add_quiz_result', methods=["POST"])
 def add_quiz_result():
-    global quiz_results
     return redirect("/dashboard")
+
 
 if __name__ == "__main__":
     app.run(port=5000)

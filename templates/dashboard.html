@@ -16,9 +16,9 @@
     <tbody>
         {% for info in student_list %}
         <tr>
-          <td>{{ info.id }}</td>
-          <td>{{ info.student_firstname }}</td>
-          <td>{{ info.student_lastname }}</td>
+          <td>{{ info['id'] }}</td>
+          <td>{{ info['first_name'] }}</td>
+          <td>{{ info['last_name'] }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -35,10 +35,10 @@
     <tbody>
         {% for info in quiz_list %}
         <tr>
-          <td>{{ info.id }}</td>
-          <td>{{ info.subject }}</td>
-          <td>{{ info.number_of_questions }}</td>
-          <td>{{ info.date_given }}</td>
+          <td>{{ info['id'] }}</td>
+          <td>{{ info['subject'] }}</td>
+          <td>{{ info['number_of_questions'] }}</td>
+          <td>{{ info['date_given'] }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -53,8 +53,8 @@
     <tbody>
         {% for info in quiz_results %}
         <tr>
-          <td>{{ info.subject }}</td>
-          <td>{{ info.student_score }}</td>
+          <td>{{ info['subject'] }}</td>
+          <td>{{ info['student_score'] }}</td>
         </tr>
         {% endfor %}
     </tbody>
