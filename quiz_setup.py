@@ -10,23 +10,24 @@ conn = sqlite3.connect("hw13.db")
 DATABASE = 'hw13.db'
 
 
-def get_db_connection():
+def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
-
-def close_db(e=None):
-    db = g.pop('db', None)
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
     if db is not None:
         db.close()
 
-
 def init_db():
-    db = get_db_connection()
-    with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
 
 
 @click.command('init-db')
@@ -71,7 +72,7 @@ def login():
 
 @app.route('/dashboard', methods=["GET", "POST"])
 def dashboard():
-    conn = get_db_connection()
+    conn = get_db()
     student_list = conn.execute('SELECT * FROM students').fetchall()
     quiz_list = conn.execute('SELECT * FROM quiz').fetchall()
     quiz_results = conn.execute('SELECT * FROM quiz_results').fetchall()
@@ -90,7 +91,7 @@ def add_student():
         elif not re.match(r"^[A-Za-z]+$", last_name):
             flash("Please input proper name")
         else:
-            conn = get_db_connection()
+            conn = get_db()
             conn.execute('UPDATE students SET first_name = ?, last_name = ?',
                          (first_name, last_name))
             conn.commit()
