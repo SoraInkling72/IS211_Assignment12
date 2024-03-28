@@ -1,6 +1,5 @@
-from flask import Flask, request, redirect, render_template, flash, current_app, g
+from flask import Flask, request, redirect, render_template, current_app, flash, g
 import re
-import click
 import sqlite3
 
 app = Flask(__name__)
@@ -23,18 +22,10 @@ def close_connection(exception):
         db.close()
 
 def init_db():
-    with app.app_context():
-        db = get_db()
-        with app.open_resource('schema.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+    db = get_db()
+    with current_app.open_resource('schema.sql') as f:
+        db.executescript(f.read().decode('utf8'))
 
-
-@click.command('init-db')
-def init_db_command():
-    """Clear the existing data and create new tables."""
-    init_db()
-    click.echo('Initialized the database.')
 
 def create_tables():
     conn = sqlite3.connect('hw13.db')
@@ -44,10 +35,6 @@ def create_tables():
         cur.execute(
             "CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
         cur.execute("CREATE TABLE quiz_results(student TEXT, student_score INTEGER);")
-
-def init_app(app):
-    app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
 
 
 @app.route('/')
@@ -81,7 +68,7 @@ def dashboard():
                            quiz_list=quiz_list, quiz_results=quiz_results)
 
 
-@app.route('/add_student', methods=["GET", "POST"])
+@app.route('/add_student', methods=["POST"])
 def add_student():
     if request.method == "POST":
         first_name = request.form["first_name"]
@@ -97,7 +84,6 @@ def add_student():
             conn.commit()
             conn.close()
             return redirect("dashboard.html")
-
     return redirect("add_student.html")
 
 
