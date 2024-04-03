@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, current_app, flash, g
+from flask import Flask, request, redirect, render_template, flash, g
 import re
 import sqlite3
 
@@ -22,9 +22,11 @@ def close_connection(exception):
         db.close()
 
 def init_db():
-    db = get_db()
-    with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
 
 
 def create_tables():
@@ -68,7 +70,7 @@ def dashboard():
                            quiz_list=quiz_list, quiz_results=quiz_results)
 
 
-@app.route('/add_student', methods=["POST"])
+@app.route('/student/add', methods=["POST"])
 def add_student():
     if request.method == "POST":
         first_name = request.form["first_name"]
@@ -87,12 +89,12 @@ def add_student():
     return redirect("add_student.html")
 
 
-@app.route('/add_quiz', methods=["POST"])
+@app.route('/quiz/add', methods=["POST"])
 def add_quiz():
     return redirect("/dashboard")
 
 
-@app.route('/add_quiz_result', methods=["POST"])
+@app.route('/results/add', methods=["POST"])
 def add_quiz_result():
     return redirect("/dashboard")
 

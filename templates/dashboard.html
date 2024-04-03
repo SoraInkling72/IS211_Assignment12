@@ -12,9 +12,6 @@
             <th>Student First Name</th>
             <th>Student Last Name</th>
         </tr>
-        <div>
-            <a class="btn" href="{{ add_student.html('add_student') }}">Add Student</a>
-        </div>
     </thead>
     <tbody>
         {% for info in student_list %}
@@ -62,5 +59,8 @@
         {% endfor %}
     </tbody>
 </table>
+<div>
+    <button onclick="window.location.href='add_student.html';">Add Student</button>
+</div>
 </body>
 </html>
