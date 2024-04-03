@@ -29,14 +29,10 @@ def init_db():
         db.commit()
 
 
-def create_tables():
-    conn = sqlite3.connect('hw13.db')
-    with conn:
-        cur = conn.cursor()
-        cur.execute("CREATE TABLE students(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT);")
-        cur.execute(
-            "CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
-        cur.execute("CREATE TABLE quiz_results(student TEXT, student_score INTEGER);")
+conn = sqlite3.connect('hw13.db')
+conn.execute("CREATE TABLE students(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT);")
+conn.execute("CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
+conn.execute("CREATE TABLE quiz_results(student TEXT, student_score INTEGER);")
 
 
 @app.route('/')
@@ -86,6 +82,7 @@ def add_student():
             conn.commit()
             conn.close()
             return redirect("dashboard.html")
+
     return redirect("add_student.html")
 
 
