@@ -29,12 +29,6 @@ def init_db():
         db.commit()
 
 
-conn = sqlite3.connect('hw13.db')
-conn.execute("CREATE TABLE students(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT);")
-conn.execute("CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
-conn.execute("CREATE TABLE quiz_results(student TEXT, student_score INTEGER);")
-
-
 @app.route('/')
 def index():
     return render_template("login.html")
@@ -66,7 +60,7 @@ def dashboard():
                            quiz_list=quiz_list, quiz_results=quiz_results)
 
 
-@app.route('/student/add', methods=["POST"])
+@app.route('/student/add', methods=["GET", "POST"])
 def add_student():
     if request.method == "POST":
         first_name = request.form["first_name"]
@@ -81,9 +75,9 @@ def add_student():
                          (first_name, last_name))
             conn.commit()
             conn.close()
-            return redirect("dashboard.html")
+            return redirect("/dashboard")
 
-    return redirect("add_student.html")
+    return render_template("add_student.html")
 
 
 @app.route('/quiz/add', methods=["POST"])
