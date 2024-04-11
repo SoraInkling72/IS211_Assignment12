@@ -20,11 +20,11 @@ CREATE TABLE quiz (
     number_of_questions INTEGER,
     date_given DATE
 );
-INSERT INTO quiz VALUES (1, 'Algebra', 40, '2022/04/03');
-INSERT INTO quiz VALUES (2, 'Calculus', 50, '2022/05/02');
-INSERT INTO quiz VALUES (3, 'English 101', 36, '2022/03/24');
-INSERT INTO quiz VALUES (4, 'Chemistry 101', 64, '2022/04/19');
-INSERT INTO quiz VALUES (5, 'Project Management', 25, '2022/02/28');
+INSERT INTO quiz VALUES (1, 'Algebra', 40, '04/03/2022');
+INSERT INTO quiz VALUES (2, 'Calculus', 50, '05/02/2022');
+INSERT INTO quiz VALUES (3, 'English 101', 36, '03/24/2022');
+INSERT INTO quiz VALUES (4, 'Chemistry 101', 64, '04/19/2022');
+INSERT INTO quiz VALUES (5, 'Project Management', 25, '02/28/2022');
 
 
 CREATE TABLE quiz_results (
