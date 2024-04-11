@@ -28,6 +28,17 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
+def create_tables():
+    conn = sqlite3.connect('hw13.db')
+    with conn:
+        cur = conn.cursor()
+        cur.execute("CREATE TABLE students(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT);")
+        cur.execute(
+            "CREATE TABLE quiz(id INTEGER PRIMARY KEY, subject TEXT, number_of_questions INTEGER, date_given DATE);")
+        cur.execute(
+            "CREATE TABLE quiz_results(student_id INTEGER PRIMARY KEY, student TEXT, quiz_id INTEGER, "
+            "student_score INTEGER);")
+
 
 @app.route('/')
 def index():
@@ -75,7 +86,7 @@ def add_student():
                          (first_name, last_name))
             conn.commit()
             conn.close()
-            return redirect("/dashboard")
+            return redirect("dashboard.html")
 
     return render_template("add_student.html")
 

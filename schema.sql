@@ -28,11 +28,13 @@ INSERT INTO quiz VALUES (5, 'Project Management', 25, '2022/02/28');
 
 
 CREATE TABLE quiz_results (
-    student INTEGER,
+    student_id INTEGER PRIMARY KEY,
+    student TEXT,
+    quiz_id INTEGER,
   	student_score INTEGER
 );
-INSERT INTO quiz_results VALUES ('John Williams', 89);
-INSERT INTO quiz_results VALUES ('Sarah Williams', 92);
-INSERT INTO quiz_results VALUES ('John Davis', 93);
-INSERT INTO quiz_results VALUES ('Annie Mei', 100);
-INSERT INTO quiz_results VALUES ('Leon Pollo', 86);
+INSERT INTO quiz_results VALUES (1, 'John Williams', 2, 89);
+INSERT INTO quiz_results VALUES (2, 'Sarah Williams', 5, 92);
+INSERT INTO quiz_results VALUES (3, 'John Davis', 4, 93);
+INSERT INTO quiz_results VALUES (4, 'Annie Mei', 1, 100);
+INSERT INTO quiz_results VALUES (5, 'Leon Pollo', 3, 86);
