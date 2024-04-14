@@ -71,7 +71,7 @@ def dashboard():
                            quiz_list=quiz_list, quiz_results=quiz_results)
 
 
-@app.route('/student/add', methods=["GET", "POST"])
+@app.route('/student/add', methods=["POST", "GET"])
 def add_student():
     if request.method == "POST":
         first_name = request.form["first_name"]

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Student</title>
+    <title>Add Student Page</title>
 </head>
 <body>
 <h1>Add Student</h1>
-    <form action="{{ dashboard.html('student_list') }}" method="post">
+    <form action="{{ add_student.html('add_student') }}" method="post">
       <label for="first_name">First Name:</label><br />
       <input type="text" id="first_name" name="first_name" value="{{ request.form['first_name'] }}" /><br />
       <label for="last_name">Last Name:</label><br />
