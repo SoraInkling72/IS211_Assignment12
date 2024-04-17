@@ -9,12 +9,16 @@
     <form action="/results/add" method="post">
       <label for="student">Student</label><br />
       <select id="student" name="student" required>
+          {% for info in select_student %}
           <option value="student">{{ info[1] }}</option>
+          {% endfor %}
       </select>
           <br />
       <label for="quiz">Quiz</label><br />
       <select id="quiz" name="quiz" required>
+          {% for info in select_quiz %}
           <option value="quiz">{{ info[1] }}</option>
+          {% endfor %}
       </select>
       <label for="score">Grade Score</label><br />
       <input type="number" id="score" name="score" value="{{ request.form['score'] }}" /><br />
