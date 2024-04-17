@@ -5,6 +5,8 @@
     <title>{% block title %} Dashboard {% endblock %}</title>
 </head>
 <body>
+<h1>Dashboard</h1>
+<br/>
 <table class="student list">
     <thead>
         <tr>
@@ -23,6 +25,10 @@
         {% endfor %}
     </tbody>
 </table>
+<div>
+    <button onclick="location.href='/student/add'">Add Student Info</button>
+</div>
+<br />
 <table class="quiz list">
     <thead>
         <tr>
@@ -43,6 +49,10 @@
         {% endfor %}
     </tbody>
 </table>
+<div>
+    <button onclick="location.href='/quiz/add'">Add Quiz Info</button>
+</div>
+<br />
 <table class="quiz results">
     <thead>
         <tr>
@@ -64,7 +74,8 @@
     </tbody>
 </table>
 <div>
-    <button onclick="location.href='{{ add_student.html('add_student') }}'">Add Student</button>
+    <button onclick="location.href='/results/add'">Add Student Quiz Results</button>
 </div>
+<br />
 </body>
 </html>

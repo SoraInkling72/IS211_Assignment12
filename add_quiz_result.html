@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Quiz Results Page</title>
+</head>
+<body>
+<h1>Add Quiz Result Info</h1>
+    <form action="/results/add" method="post">
+      <label for="student">Student</label><br />
+      <select id="student" name="student" required>
+          <option value="student">{{ info[1] }}</option>
+      </select>
+          <br />
+      <label for="quiz">Quiz</label><br />
+      <select id="quiz" name="quiz" required>
+          <option value="quiz">{{ info[1] }}</option>
+      </select>
+      <label for="score">Grade Score</label><br />
+      <input type="number" id="score" name="score" value="{{ request.form['score'] }}" /><br />
+          <br />
+        <input type="submit" value="Confirm" />
+    </form>
+</body>
+</html>

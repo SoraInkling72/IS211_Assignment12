@@ -82,23 +82,45 @@ def add_student():
             flash("Please input proper name")
         else:
             conn = get_db()
-            conn.execute('UPDATE students SET first_name = ?, last_name = ?',
+            conn.execute('INSERT INTO students (first_name, last_name) VALUES (?, ?)',
                          (first_name, last_name))
             conn.commit()
             conn.close()
-            return redirect("dashboard.html")
-
+            return redirect("/dashboard")
     return render_template("add_student.html")
 
 
-@app.route('/quiz/add', methods=["POST"])
+@app.route('/quiz/add', methods=["POST", "GET"])
 def add_quiz():
-    return redirect("/dashboard")
+    if request.method == "POST":
+        subject = request.form["subject"]
+        questions = request.form["questions"]
+        date = request.form["date"]
+        if not re.match(r"^[A-Za-z0-9]+$", subject):
+            flash("Please input proper subject name")
+        elif not re.match(r"^[0-9]+$", questions):
+            flash("Please input valid number")
+        else:
+            conn = get_db()
+            conn.execute('INSERT INTO quiz (subject, number_of_questions, date_given) VALUES (?, ?, ?)',
+                         (subject, questions, date))
+            conn.commit()
+            conn.close()
+            return redirect("/dashboard")
+    return render_template("add_quiz.html")
 
 
-@app.route('/results/add', methods=["POST"])
+@app.route('/results/add', methods=["POST", "GET"])
 def add_quiz_result():
-    return redirect("/dashboard")
+    if request.method == "POST":
+        conn = get_db()
+        select_student = conn.execute("SELECT * FROM students, CONCAT(first_name, ' ', last_name) AS 'Name' FROM students")
+        select_quiz = conn.execute("SELECT id, subject FROM quiz")
+        conn.commit()
+        conn.close()
+        quiz_score = request.form["score"]
+        return redirect("/dashboard")
+    return render_template("add_quiz_result.html")
 
 
 if __name__ == "__main__":

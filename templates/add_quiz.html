@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Quiz Page</title>
+</head>
+<body>
+<h1>Add Quiz Info</h1>
+    <form action="/quiz/add" method="post">
+      <label for="subject">Quiz Subject</label><br />
+      <input type="text" id="subject" name="subject" value="{{ request.form['subject'] }}" /><br />
+      <label for="questions">No. of Questions</label><br />
+      <input type="number" id="questions" name="questions" value="{{ request.form['questions'] }}" /><br />
+      <label for="date">Date Taken</label><br />
+      <input type="date" id="date" name="date" placeholder="MM/DD/YYYY" value="{{ request.form['date'] }}" /><br />
+        <br />
+        <input type="submit" value="Confirm" />
+    </form>
+</body>
+</html>

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Add Student</h1>
-    <form action="{{ add_student.html('add_student') }}" method="post">
+    <form action="/student/add" method="post">
       <label for="first_name">First Name:</label><br />
       <input type="text" id="first_name" name="first_name" value="{{ request.form['first_name'] }}" /><br />
       <label for="last_name">Last Name:</label><br />
