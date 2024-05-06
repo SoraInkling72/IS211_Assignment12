@@ -123,7 +123,8 @@ def add_quiz_result():
             flash("Please input valid number")
         else:
             conn = get_db()
-            conn.execute('INSERT INTO ')
+            conn.execute('INSERT INTO quiz_results (student, quiz_id, student_score) VALUES (?, ?, ?)',
+                         (select_student, select_quiz, quiz_score))
         return redirect("/dashboard")
     return render_template("add_quiz_result.html")
 
