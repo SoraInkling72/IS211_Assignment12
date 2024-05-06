@@ -119,6 +119,11 @@ def add_quiz_result():
         conn.commit()
         conn.close()
         quiz_score = request.form["score"]
+        if not re.match(r"^[0-9]+$", quiz_score):
+            flash("Please input valid number")
+        else:
+            conn = get_db()
+            conn.execute('INSERT INTO ')
         return redirect("/dashboard")
     return render_template("add_quiz_result.html")
 
