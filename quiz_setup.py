@@ -114,10 +114,10 @@ def add_quiz():
 def add_quiz_result():
     if request.method == "POST":
         conn = get_db()
-        select_student = conn.execute("SELECT * FROM students, CONCAT(first_name, ' ', last_name) AS 'Name' FROM students").fetchall()
+        select_student = conn.execute("SELECT *, CONCAT(first_name, ' ', last_name) FROM students").fetchall()
         select_quiz = conn.execute("SELECT id, subject FROM quiz").fetchall()
-        conn.commit()
         conn.close()
+
         quiz_score = request.form["score"]
         if not re.match(r"^[0-9]+$", quiz_score):
             flash("Please input valid number")
