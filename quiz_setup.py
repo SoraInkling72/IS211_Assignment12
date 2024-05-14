@@ -85,7 +85,7 @@ def add_student():
             conn.execute('INSERT INTO students (first_name, last_name) VALUES (?, ?)',
                          (first_name, last_name))
             conn.commit()
-            conn.close()
+            conn.close()n
             return redirect("/dashboard")
     return render_template("add_student.html")
 
