@@ -113,11 +113,9 @@ def add_quiz():
 @app.route('/results/add', methods=["POST", "GET"])
 def add_quiz_result():
     if request.method == "POST":
-        conn = get_db()
+        conn = sqlite3.connect('hw13.db')
         select_student = conn.execute("SELECT *, CONCAT(first_name, ' ', last_name) FROM students").fetchall()
         select_quiz = conn.execute("SELECT id, subject FROM quiz").fetchall()
-        conn.close()
-
         quiz_score = request.form["score"]
         if not re.match(r"^[0-9]+$", quiz_score):
             flash("Please input valid number")
@@ -125,7 +123,9 @@ def add_quiz_result():
             conn = get_db()
             conn.execute('INSERT INTO quiz_results (student, quiz_id, student_score) VALUES (?, ?, ?)',
                          (select_student, select_quiz, quiz_score))
-        return redirect("/dashboard")
+            conn.commit()
+            conn.close()
+            return redirect("/dashboard")
     return render_template("add_quiz_result.html")
 
 
